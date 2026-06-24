@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Portfolio of Abhinav A V - Premium Interactive Web Developer displaying high-tech visuals, interactive globe locator, custom cursor, and dynamic spider web chart.">
-    <title>Abhinav A V | Interactive Portfolio</title>
+    <meta name="description" content="Official Portfolio of Abhinav A V - First Year Student displaying interactive Earth globe locator, custom spaceship cursor, and typewriter styling.">
+    <title>Abhinav A V | Interactive Student Portfolio</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -17,11 +17,17 @@
     <!-- Canvas Particle Background -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Custom Cursor Overlay -->
+    <!-- Custom Spaceship Cursor Overlay -->
     <div id="custom-cursor">
-        <svg viewBox="-20 -20 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
-            <!-- Sleek Glowing Batman Emblem -->
-            <path d="M 0,10 C 3,10 9,5 11,0 C 13,5 19,10 22,10 C 18,5 24,1 27,-4 C 21,-3 16,-1 14,-7 C 13.5,-9 13,-15 14,-19 C 12,-14 9,-11 8,-9 C 7,-11 4,-14 2,-19 C 3,-15 2.5,-9 2,-7 C 0,-1 -6,-3 -12,-4 C -8,1 -2,5 -6,10 Z" fill="currentColor"/>
+        <svg viewBox="-15 -25 30 50" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <!-- Spaceship Thruster Flame (behind body) -->
+            <path id="thrust-flame" d="M -3.5,8 C -3.5,18 3.5,18 3.5,8 C 0,23 0,23 -3.5,8 Z" fill="hsl(200, 100%, 55%)"/>
+            <!-- Spaceship Wing Fins (Silver Metallic) -->
+            <path d="M -12,8 L -5,4 L -5,-1 L -12,8 Z M 12,8 L 5,4 L 5,-1 L 12,8 Z" fill="hsl(200, 10%, 75%)" stroke="hsl(200, 15%, 55%)" stroke-width="1"/>
+            <!-- Spaceship Main Hull (Silver Chrome) -->
+            <path d="M 0,-18 L 4,-2 L 5,8 L 0,6 L -5,8 L -4,-2 Z" fill="hsl(200, 10%, 90%)" stroke="hsl(200, 15%, 65%)" stroke-width="1"/>
+            <!-- Spaceship Cockpit Window (Cyan Glass) -->
+            <polygon points="0,-12 2,-6 -2,-6" fill="hsl(190, 100%, 50%)"/>
         </svg>
     </div>
     <canvas id="cursor-canvas"></canvas>
@@ -29,7 +35,7 @@
     <!-- Navigation Header -->
     <header class="main-header glass-panel">
         <div class="logo">
-            <span class="logo-icon"><i class="fa-solid fa-mask"></i></span>
+            <span class="logo-icon"><i class="fa-solid fa-rocket"></i></span>
             <span class="logo-text">ABHINAV<span>.</span></span>
         </div>
         <nav class="nav-links" id="nav-links">
@@ -38,7 +44,7 @@
             <a href="#skills" class="nav-link">Skills</a>
             <a href="#interests" class="nav-link">Interests</a>
             <a href="#projects" class="nav-link">Projects</a>
-            <a href="#timeline" class="nav-link">Experience</a>
+            <a href="#timeline" class="nav-link">Education</a>
             <a href="#terminal" class="nav-link">Terminal</a>
             <a href="#contact" class="nav-link">Contact</a>
         </nav>
@@ -55,39 +61,32 @@
     </header>
 
     <main class="container">
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="hero-content">
-                <div class="badge glass-panel"><span class="badge-dot"></span> Available for Hire</div>
-                <!-- Multilingual Name Container -->
-                <h1 class="hero-title">Hello, I'm <br><span id="animated-name" class="gradient-text animated-name-fade">Abhinav A V</span></h1>
-                <p class="hero-subtitle">I'm a <span id="typing-text" class="typing-text"></span><span class="cursor">|</span> based in digital space, building highly performant, custom-crafted applications.</p>
+        <!-- Hero Section (Centered Layout, No Robot Avatar) -->
+        <section id="home" class="hero-section hero-section-center">
+            <div class="hero-content hero-content-center">
+                <div class="badge glass-panel"><span class="badge-dot"></span> First-Year Student</div>
+                <h1 class="hero-title">Hello, I'm <br><span id="animated-name" class="gradient-text cursive-name">Abhinav A V</span></h1>
+                <p class="hero-subtitle">I'm a <span id="typing-text" class="typing-text"></span><span class="cursor">|</span> based in digital space, eager to explore Python, C++, and database architectures.</p>
                 <div class="hero-ctas">
-                    <a href="#projects" class="btn btn-primary">Explore Work <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#projects" class="btn btn-primary">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
                     <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="avatar-container glass-panel">
-                    <img src="../../brain/570e222e-b5ea-4235-935a-a48840c07dcd/avatar_1782281599552.png" alt="Developer Avatar" class="avatar-image" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80'">
-                    <div class="avatar-glow"></div>
                 </div>
             </div>
         </section>
 
-        <!-- About & Stats Section (incorporating Location Zoom) -->
+        <!-- About & Stats Section -->
         <section id="about" class="about-section scroll-reveal">
             <h2 class="section-title"><span>01.</span> About Myself</h2>
             <div class="about-grid">
                 <div class="about-info glass-panel">
-                    <h3>Engineering interfaces, solving complex challenges.</h3>
-                    <p>I build clean, optimized code architectures and visually stunning frontends. My philosophy is that technology should not only work flawlessly under the hood but should also feel fluid and delightful to use.</p>
-                    <p>When I'm not coding, I study design trends, play football, stream immersive games, and experiment with generative web graphics.</p>
+                    <h3>Exploring software engineering, expanding my knowledge.</h3>
+                    <p>I am a first-year computer science student passionate about understanding core software structures and coding workflows. I focus on learning syntax logic, basic algorithmic puzzles, and structural layouts.</p>
+                    <p>While I don't have job experience yet, I actively build personal console games, write custom scripting routines, and learn standard query structures to strengthen my database foundations.</p>
                     
                     <!-- Location Scanner Widget -->
                     <div class="location-scanner glass-panel-inner">
                         <div class="scanner-header">
-                            <span class="scanner-title"><i class="fa-solid fa-earth-asia"></i> TARGET_TRACKER</span>
+                            <span class="scanner-title"><i class="fa-solid fa-location-crosshairs"></i> Operational Base: Trivandrum</span>
                             <span class="scanner-coords" id="scanner-coords">0.0000° N, 0.0000° E</span>
                         </div>
                         <div class="scanner-body">
@@ -100,20 +99,20 @@
                 
                 <div class="stats-grid">
                     <div class="stat-card glass-panel">
-                        <div class="stat-num" data-val="15">0</div>
-                        <div class="stat-label">Projects Complete</div>
+                        <div class="stat-num" data-val="1">0</div>
+                        <div class="stat-label">College Year</div>
                     </div>
                     <div class="stat-card glass-panel">
-                        <div class="stat-num" data-val="4">0</div>
-                        <div class="stat-label">Years Coding</div>
+                        <div class="stat-num" data-val="3">0</div>
+                        <div class="stat-label">Core Languages</div>
                     </div>
                     <div class="stat-card glass-panel">
-                        <div class="stat-num" data-val="56">0</div>
-                        <div class="stat-label">Contributions</div>
+                        <div class="stat-num" data-val="5">0</div>
+                        <div class="stat-label">Personal Builds</div>
                     </div>
                     <div class="stat-card glass-panel">
-                        <div class="stat-num" data-val="100">0</div>
-                        <div class="stat-label">Success Rate (%)</div>
+                        <div class="stat-num" data-val="120">0</div>
+                        <div class="stat-label">Hours Coding</div>
                     </div>
                 </div>
             </div>
@@ -125,52 +124,52 @@
             <div class="skills-grid">
                 <div class="skills-category glass-panel">
                     <div class="cat-header">
-                        <i class="fa-solid fa-laptop-code"></i>
-                        <h3>Frontend</h3>
+                        <i class="fa-brands fa-python"></i>
+                        <h3>Python</h3>
                     </div>
                     <ul class="skills-list">
-                        <li><span>HTML5 / CSS3 / ES6+</span> <span class="skill-pct">95%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                        <li><span>React / Next.js</span> <span class="skill-pct">90%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                        <li><span>Modern CSS / Animations</span> <span class="skill-pct">95%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+                        <li><span>Basic Syntax & Scripts</span> <span class="skill-pct">70%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div>
+                        <li><span>OOP Concepts</span> <span class="skill-pct">60%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
+                        <li><span>Simple Libraries (Pygame/Tkinter)</span> <span class="skill-pct">55%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 55%"></div></div>
                     </ul>
                 </div>
 
                 <div class="skills-category glass-panel">
                     <div class="cat-header">
-                        <i class="fa-solid fa-server"></i>
-                        <h3>Backend</h3>
+                        <i class="fa-solid fa-code"></i>
+                        <h3>C++ Programming</h3>
                     </div>
                     <ul class="skills-list">
-                        <li><span>Node.js / Express</span> <span class="skill-pct">85%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
-                        <li><span>RESTful APIs / GraphQL</span> <span class="skill-pct">88%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
-                        <li><span>Databases (SQL & NoSQL)</span> <span class="skill-pct">80%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+                        <li><span>Syntax & Control Loops</span> <span class="skill-pct">65%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 65%"></div></div>
+                        <li><span>Pointers & Memory Basics</span> <span class="skill-pct">50%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 50%"></div></div>
+                        <li><span>Structures & Classes</span> <span class="skill-pct">55%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 55%"></div></div>
                     </ul>
                 </div>
 
                 <div class="skills-category glass-panel">
                     <div class="cat-header">
-                        <i class="fa-solid fa-bezier-curve"></i>
-                        <h3>Design & Tools</h3>
+                        <i class="fa-solid fa-database"></i>
+                        <h3>DBMS & Web</h3>
                     </div>
                     <ul class="skills-list">
-                        <li><span>UI/UX Figma Prototyping</span> <span class="skill-pct">90%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                        <li><span>Git / CI/CD Pipelines</span> <span class="skill-pct">85%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
-                        <li><span>Command Line / Scripting</span> <span class="skill-pct">90%</span></li>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+                        <li><span>Relational Theory & SQL</span> <span class="skill-pct">60%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
+                        <li><span>Database Schema Designs</span> <span class="skill-pct">50%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 50%"></div></div>
+                        <li><span>HTML5 & CSS3 Layouts</span> <span class="skill-pct">70%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Interests Section (incorporating Spider Web Chart) -->
+        <!-- Interests Section -->
         <section id="interests" class="interests-section scroll-reveal">
             <h2 class="section-title"><span>03.</span> Interests & Passions</h2>
             <div class="interests-grid">
@@ -178,24 +177,22 @@
                     <h3>Spider Web Interest Mapping</h3>
                     <div class="canvas-chart-wrapper">
                         <canvas id="interests-chart"></canvas>
-                        <!-- Custom html tooltips inside canvas -->
                         <div id="chart-tooltip" class="chart-tooltip"></div>
                     </div>
                 </div>
                 
                 <div class="interests-info glass-panel">
                     <h3>Beyond the Code Matrix</h3>
-                    <p>My growth is fueled by diverse experiences. Here is how I divide my focus and energy when offline:</p>
+                    <p>Outside of study materials, I explore a range of hobbies that shape my focus and logic processing:</p>
                     <div class="interest-pill-container">
-                        <div class="interest-pill"><i class="fa-solid fa-football"></i> Football (Tactics & Playing)</div>
-                        <div class="interest-pill"><i class="fa-solid fa-gamepad"></i> Video Games (Simulation & RPGs)</div>
-                        <div class="interest-pill"><i class="fa-solid fa-code"></i> Open Source Hackathons</div>
-                        <div class="interest-pill"><i class="fa-solid fa-music"></i> Lo-Fi Synth Production</div>
-                        <div class="interest-pill"><i class="fa-solid fa-book-open"></i> Sci-Fi & Philosophy</div>
-                        <div class="interest-pill"><i class="fa-solid fa-brain"></i> Strategic Planning</div>
+                        <div class="interest-pill"><i class="fa-solid fa-football"></i> Football (Playing & Watching)</div>
+                        <div class="interest-pill"><i class="fa-solid fa-gamepad"></i> Video Games (RPG & Tactics)</div>
+                        <div class="interest-pill"><i class="fa-solid fa-terminal"></i> Command Line Hackery</div>
+                        <div class="interest-pill"><i class="fa-solid fa-music"></i> Synthesizer Beats</div>
+                        <div class="interest-pill"><i class="fa-solid fa-space-shuttle"></i> Space Exploration Systems</div>
                     </div>
                     <div class="interest-desc-box">
-                        <p><strong>Football</strong> drives my team communication and athletic focus. <strong>Video games</strong> stimulate visual scripting ideas. Together with coding, they build an analytical mindset that thrives under pressure.</p>
+                        <p><strong>Football</strong> helps build my communication focus and team spirit. <strong>Video games</strong> trigger ideas for gameplay mechanics and UI flows. Combined, they create a balanced foundation for logic systems.</p>
                     </div>
                 </div>
             </div>
@@ -227,36 +224,17 @@
             <!-- Filters -->
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Apps</button>
-                <button class="filter-btn" data-filter="ai">AI & Data</button>
-                <button class="filter-btn" data-filter="creative">Creative Tech</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="cpp">C++</button>
+                <button class="filter-btn" data-filter="dbms">DBMS / Web</button>
             </div>
 
             <!-- Project Cards Grid -->
             <div class="projects-grid">
                 <!-- Card 1 -->
-                <div class="project-card glass-panel" data-category="web">
+                <div class="project-card glass-panel" data-category="python">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80" alt="Nebula App Preview">
-                        <div class="project-overlay">
-                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>CSS Grid</span>
-                            <span>WebSockets</span>
-                        </div>
-                        <h3 class="project-title">Nebula Dashboard</h3>
-                        <p class="project-desc">A real-time telemetry dashboard designed for monitoring server networks with high-fidelity glassmorphic graphics.</p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="project-card glass-panel" data-category="ai">
-                    <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&auto=format&fit=crop&q=80" alt="AI Workspace Preview">
+                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop&q=80" alt="Pathfinding Visualizer Preview">
                         <div class="project-overlay">
                             <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
                         </div>
@@ -264,83 +242,93 @@
                     <div class="project-info">
                         <div class="project-tags">
                             <span>Python</span>
-                            <span>Transformers</span>
-                            <span>API</span>
+                            <span>Pygame</span>
+                            <span>Algorithms</span>
                         </div>
-                        <h3 class="project-title">Cognitive Nexus</h3>
-                        <p class="project-desc">An AI agent orchestrator designed to process and synthesize unstructured document databases into structured insights.</p>
+                        <h3 class="project-title">Pathfinding Visualizer</h3>
+                        <p class="project-desc">A grid-map visualization tool written in Python to demonstrate BFS, DFS, and Dijkstra pathfinding routines.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="project-card glass-panel" data-category="dbms">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500&auto=format&fit=crop&q=80" alt="Library Manager Preview">
+                        <div class="project-overlay">
+                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span>C++</span>
+                            <span>MySQL</span>
+                            <span>DBMS</span>
+                        </div>
+                        <h3 class="project-title">Library SQL Manager</h3>
+                        <p class="project-desc">A console-based database project designed in C++ to register library log files and update database entries.</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="project-card glass-panel" data-category="creative">
+                <div class="project-card glass-panel" data-category="cpp">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=80" alt="Generative Canvas Preview">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=80" alt="Console Game Preview">
                         <div class="project-overlay">
                             <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <div class="project-tags">
-                            <span>HTML5 Canvas</span>
-                            <span>GLSL</span>
-                            <span>Vanilla JS</span>
+                            <span>C++</span>
+                            <span>Terminal</span>
+                            <span>OOP</span>
                         </div>
-                        <h3 class="project-title">Aether Synthesis</h3>
-                        <p class="project-desc">An audio-reactive visualizer running custom WebGL shaders to create fluid, beautiful audio canvases.</p>
+                        <h3 class="project-title">Terminal Space Invader</h3>
+                        <p class="project-desc">A classic 2D retro arcade game rendered in C++ console window using custom input buffers and OOP patterns.</p>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="project-card glass-panel" data-category="web">
+                <div class="project-card glass-panel" data-category="dbms">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=80" alt="SaaS App Preview">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=80" alt="Web Sandbox Preview">
                         <div class="project-overlay">
                             <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
                         </div>
                     </div>
                     <div class="project-info">
                         <div class="project-tags">
-                            <span>Next.js</span>
-                            <span>PostgreSQL</span>
-                            <span>Stripe</span>
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>Vanilla JS</span>
                         </div>
-                        <h3 class="project-title">Quantum Flow</h3>
-                        <p class="project-desc">A subscription-based SaaS template facilitating project task management and team analytics tracking.</p>
+                        <h3 class="project-title">Personal Sandbox Web</h3>
+                        <p class="project-desc">A responsive web sandbox created with clean semantic styling to test UI layouts and transition effects.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Timeline Section -->
+        <!-- Education Timeline Section -->
         <section id="timeline" class="timeline-section scroll-reveal">
-            <h2 class="section-title"><span>05.</span> Experience Timeline</h2>
+            <h2 class="section-title"><span>05.</span> Educational Timeline</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content glass-panel">
-                        <span class="timeline-date">2024 - Present</span>
-                        <h3 class="timeline-title">Lead Web Engineer</h3>
-                        <h4 class="timeline-org">Aether Web Studios</h4>
-                        <p>Directing frontend development strategy, building premium design systems, and improving client platform loads by 40% using optimized vanilla bundles and component architectures.</p>
+                        <span class="timeline-date">2025 - Present</span>
+                        <h3 class="timeline-title">B.Tech Computer Science Studies</h3>
+                        <h4 class="timeline-org">University College / Institute</h4>
+                        <p>First-year student learning computer science foundations, logic structures, object-oriented concepts, and relational databases. Expanding knowledge in Python, C++, and SQL schemas.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content glass-panel">
-                        <span class="timeline-date">2023 - 2024</span>
-                        <h3 class="timeline-title">Full Stack Developer</h3>
-                        <h4 class="timeline-org">Hologram Tech</h4>
-                        <p>Constructed microservices using Node.js and React, integrated payment pathways, and engineered interactive visual components for telemetry display interfaces.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content glass-panel">
-                        <span class="timeline-date">2021 - 2023</span>
-                        <h3 class="timeline-title">Software Engineering Studies</h3>
-                        <h4 class="timeline-org">Tech Institute of Science</h4>
-                        <p>Earned specialization in web systems engineering, data structures, and computer graphics design. Graduated with honors.</p>
+                        <span class="timeline-date">2023 - 2025</span>
+                        <h3 class="timeline-title">Higher Secondary Education</h3>
+                        <h4 class="timeline-org">Higher Secondary School</h4>
+                        <p>Specialized in computer science, physics, chemistry, and mathematics. Developed foundational programming constructs, conditional loop routines, and file structures in Python.</p>
                     </div>
                 </div>
             </div>
@@ -374,14 +362,21 @@
             <h2 class="section-title"><span>07.</span> Connection Terminal</h2>
             <div class="contact-grid">
                 <div class="contact-text">
-                    <h3>Let's collaborate on your next digital experience.</h3>
-                    <p>Have an idea or need a customized solution? Reach out. My inbox is always open.</p>
+                    <h3>Let's connect and build the next digital interface.</h3>
+                    <p>Eager to collaborate on basic student projects, code reviews, or hackathons. Get in touch.</p>
                     <div class="contact-channels">
                         <div class="channel-card glass-panel">
                             <i class="fa-solid fa-envelope"></i>
                             <div>
                                 <span>Email Me</span>
                                 <a href="mailto:abhinav.av@devunit.io">abhinav.av@devunit.io</a>
+                            </div>
+                        </div>
+                        <div class="channel-card glass-panel">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                            <div>
+                                <span>LinkedIn Link</span>
+                                <a href="https://linkedin.com/in/abhinav-av" target="_blank">linkedin.com/in/abhinav-av</a>
                             </div>
                         </div>
                         <div class="channel-card glass-panel">
@@ -426,7 +421,7 @@
                     <h3 id="modal-title" class="modal-title">Project Name</h3>
                     <div id="modal-desc" class="modal-desc">Detailed project description goes here.</div>
                     <div class="modal-actions">
-                        <a href="#" id="modal-link-live" class="btn btn-primary" target="_blank">Launch Site <i class="fa-solid fa-up-right-from-square"></i></a>
+                        <a href="#" id="modal-link-live" class="btn btn-primary" target="_blank">Launch Project <i class="fa-solid fa-up-right-from-square"></i></a>
                         <a href="#" id="modal-link-code" class="btn btn-secondary" target="_blank">View Code <i class="fa-solid fa-code-branch"></i></a>
                     </div>
                 </div>
@@ -441,7 +436,7 @@
         <p>&copy; 2026 Abhinav A V. Built with raw passion & clean code.</p>
         <div class="footer-socials">
             <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://linkedin.com/in/abhinav-av" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
             <a href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
         </div>
     </footer>

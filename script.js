@@ -1,4 +1,4 @@
-// Premium Developer Portfolio Logic System for Abhinav A V
+// Premium Developer Portfolio Logic System for Abhinav A V (First Year CS Student)
 
 document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('portfolio-theme', 'dark');
             showToast('Switching to Dark Mode', 'success');
         }
-        // Force redraw interactive canvases on theme toggle
+        // Force canvas redraw
         resizeInterestsChart();
         resizeGlobeCanvas();
     });
@@ -60,52 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // 3. Multilingual Name Glitch / Scramble Animation
+    // 3. Cursive Name Entrance Animation
     // ----------------------------------------------------
     const nameEl = document.getElementById('animated-name');
-    const names = ["Abhinav A V", "അഭിനവ് എ വി", "अभिनव ए वी"];
-    let currentNameIdx = 0;
-
-    function scrambleText(targetText) {
-        let iteration = 0;
-        // Scramble dictionary supporting English, Malayalam, and Hindi characters
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789അആഇഈഉഊഋഎഏഐഒഓഔകഖഗഘങചഛജഝഞടഠഡഢണതഥദധനപഫബഭമയരലവശഷസഹളഴറअआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह";
-        
-        const interval = setInterval(() => {
-            if (!nameEl) {
-                clearInterval(interval);
-                return;
-            }
-            nameEl.innerText = targetText.split("")
-                .map((char, index) => {
-                    if (index < iteration) {
-                        return targetText[index];
-                    }
-                    // Select a random character from the alphabet pool
-                    return chars[Math.floor(Math.random() * chars.length)];
-                })
-                .join("");
-            
-            if (iteration >= targetText.length) {
-                clearInterval(interval);
-                nameEl.innerText = targetText;
-            }
-            iteration += 1 / 3;
-        }, 30);
-    }
 
     if (nameEl) {
-        setInterval(() => {
-            currentNameIdx = (currentNameIdx + 1) % names.length;
-            scrambleText(names[currentNameIdx]);
-        }, 4000);
+        // Trigger the entrance animation after a short delay
+        setTimeout(() => {
+            nameEl.classList.add('revealed');
+        }, 600);
     }
 
     // ----------------------------------------------------
     // 4. Hero Role Typing Text Effect
     // ----------------------------------------------------
     const typingText = document.getElementById('typing-text');
-    const roles = ["Full-Stack Developer", "Creative Programmer", "Tech Architect", "Problem Solver"];
+    const roles = ["First-Year Student", "Python Learner", "C++ Explorer", "DBMS Student"];
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -141,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 5. Custom Trailing Batman Cursor & Particle Trail
+    // 5. Custom Spaceship Trailing Cursor & Spark Trail
     // ----------------------------------------------------
     const cursor = document.getElementById('custom-cursor');
     const cursorCanvas = document.getElementById('cursor-canvas');
@@ -153,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cursorActive = false;
     let sparks = [];
 
-    // Check device type (no custom cursor on mobile/touch interfaces)
     const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 
     if (isDesktop && cursor) {
@@ -164,21 +133,19 @@ document.addEventListener('DOMContentLoaded', () => {
             mouseCoords.y = e.clientY;
             cursorActive = true;
             
-            // Spawn sparks on movement
             const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-            if (speed > 1) {
+            if (speed > 1.2) {
                 createSparks(e.clientX, e.clientY, Math.ceil(speed / 4));
             }
         });
 
-        // Toggle hover states
+        // Hover expansions
         const hoverables = document.querySelectorAll('a, button, input, textarea, .project-card, .filter-btn, .nav-link, .modal-close');
         hoverables.forEach(item => {
             item.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
             item.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
         });
 
-        // Handle canvas dimensions
         const resizeCursorCanvas = () => {
             cursorCanvas.width = window.innerWidth;
             cursorCanvas.height = window.innerHeight;
@@ -186,20 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', resizeCursorCanvas);
         resizeCursorCanvas();
 
-        // Spark particles physics
         class Spark {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 2.5 + 1;
-                // Radial scatter direction
+                this.size = Math.random() * 2 + 1;
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 2 + 0.5;
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed;
                 this.alpha = 1;
-                this.decay = Math.random() * 0.03 + 0.015;
-                this.color = Math.random() > 0.5 ? 'hsl(263, 90%, 65%)' : 'hsl(190, 95%, 50%)';
+                this.decay = Math.random() * 0.04 + 0.02;
+                this.color = Math.random() > 0.4 ? 'hsl(200, 100%, 55%)' : 'hsl(180, 100%, 50%)'; // Blue / Cyan sparks
             }
 
             update() {
@@ -214,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cCtx.beginPath();
                 cCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 cCtx.fillStyle = this.color;
-                cCtx.shadowBlur = 6;
+                cCtx.shadowBlur = 5;
                 cCtx.shadowColor = this.color;
                 cCtx.fill();
                 cCtx.restore();
@@ -227,38 +192,39 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Main cursor draw / update frame loop
         const updateCursor = () => {
             if (!cursorActive) {
                 requestAnimationFrame(updateCursor);
                 return;
             }
 
-            // Lerp positioning
             const dx = mouseCoords.x - currentCoords.x;
             const dy = mouseCoords.y - currentCoords.y;
             
-            currentCoords.x += dx * 0.14;
-            currentCoords.y += dy * 0.14;
+            currentCoords.x += dx * 0.13;
+            currentCoords.y += dy * 0.13;
             
-            // Velocity calculation
             velocity.x = dx;
             velocity.y = dy;
 
-            // Rotation angle (add 90 deg / PI/2 offset because SVG points up by default)
-            const angle = Math.atan2(dy, dx) + Math.PI / 2;
+            const angle = Math.atan2(dy, dx) + Math.PI / 2; // Offset rotation pointing up
             const speed = Math.sqrt(dx * dx + dy * dy);
 
-            // Stretch scale parameters based on velocity
-            const scaleX = 1 + Math.min(speed / 120, 0.35);
-            const scaleY = 1 - Math.min(speed / 180, 0.2);
+            // Active thrust flame trigger when speed threshold is met
+            if (speed > 0.8) {
+                cursor.classList.add('thrusting');
+            } else {
+                cursor.classList.remove('thrusting');
+            }
 
-            // Render transforms
+            // Spaceship scaling stretch logic
+            const scaleX = 1 + Math.min(speed / 130, 0.3);
+            const scaleY = 1 - Math.min(speed / 190, 0.15);
+
             cursor.style.left = `${currentCoords.x}px`;
             cursor.style.top = `${currentCoords.y}px`;
             cursor.style.transform = `rotate(${angle}rad) scale(${scaleX}, ${scaleY})`;
 
-            // Draw spark trails
             cCtx.clearRect(0, 0, cursorCanvas.width, cursorCanvas.height);
             sparks = sparks.filter(s => s.alpha > 0);
             sparks.forEach(s => {
@@ -278,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
 
     let particles = [];
-    const maxParticles = 80;
+    const maxParticles = 75;
     let backgroundMouse = { x: null, y: null, radius: 150 };
 
     window.addEventListener('mousemove', (e) => {
@@ -302,9 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 2 + 1;
-            this.color = Math.random() > 0.5 ? 'hsl(263, 90%, 65%)' : 'hsl(190, 95%, 50%)';
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
+            this.color = Math.random() > 0.5 ? 'hsl(200, 100%, 50%)' : 'hsl(180, 100%, 50%)'; // Blue / Cyan
+            this.vx = (Math.random() - 0.5) * 0.45;
+            this.vy = (Math.random() - 0.5) * 0.45;
         }
 
         update() {
@@ -347,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function connectParticles() {
-        let maxDist = 100;
+        let maxDist = 110;
         for (let a = 0; a < particles.length; a++) {
             for (let b = a; b < particles.length; b++) {
                 let dx = particles[a].x - particles[b].x;
@@ -355,10 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let dist = Math.sqrt(dx * dx + dy * dy);
 
                 if (dist < maxDist) {
-                    let alpha = (1 - (dist / maxDist)) * 0.15;
-                    ctx.strokeStyle = bodyEl.classList.contains('dark-theme') 
-                        ? `rgba(139, 92, 246, ${alpha})` 
-                        : `rgba(109, 40, 217, ${alpha})`;
+                    let alpha = (1 - (dist / maxDist)) * 0.16;
+                    ctx.strokeStyle = `rgba(0, 210, 255, ${alpha})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particles[a].x, particles[a].y);
@@ -391,21 +355,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartTooltip = document.getElementById('chart-tooltip');
 
     const interestsData = [
-        { label: "Football", value: 92, desc: "Team play, tactical positioning, and physical endurance." },
-        { label: "Gaming", value: 85, desc: "Immersive narrative simulation and mechanical design." },
-        { label: "Coding", value: 95, desc: "System engineering, UI clean scripting, and logic loops." },
-        { label: "Designing", value: 78, desc: "Figma wireframing, color tailoring, and visual hierarchy." },
-        { label: "Music", value: 70, desc: "Synthesis, sound wave design, and relaxing ambient audio." },
-        { label: "Strategy", value: 82, desc: "Analytical breakdown, decision making, and problem solving." }
+        { label: "Football", value: 90, desc: "Team coordination, strategic plays, and physical fitness." },
+        { label: "Gaming", value: 85, desc: "Tactical simulation games, engine design, and gameplay mechanics." },
+        { label: "Python", value: 70, desc: "Scripting systems, console utilities, and algorithmic puzzles." },
+        { label: "C++", value: 65, desc: "OOP constructs, syntax details, and simple 2D console engines." },
+        { label: "DBMS", value: 60, desc: "Schema layouts, relational tables, and writing basic SQL queries." },
+        { label: "Space Tech", value: 80, desc: "Orbital math, rocket structures, and astronomical vectors." }
     ];
 
     let chartCenter = { x: 150, y: 150 };
-    let chartRadius = 100;
-    let chartActive = false;
-    let vertexPoints = []; // Holds coords for mouse hit detection
+    let chartRadius = 95;
+    let vertexPoints = [];
 
     function resizeInterestsChart() {
-        // Render crisp on high DPI screens
         const dpr = window.devicePixelRatio || 1;
         interestCanvas.width = 300 * dpr;
         interestCanvas.height = 300 * dpr;
@@ -418,11 +380,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const isDark = bodyEl.classList.contains('dark-theme');
         const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-        const textColor = isDark ? 'hsl(215, 20%, 65%)' : 'hsl(215, 16%, 37%)';
-        const primaryColor = isDark ? 'hsl(263, 90%, 65%)' : 'hsl(262, 83%, 58%)';
-        const secondaryColor = isDark ? 'hsl(190, 95%, 50%)' : 'hsl(194, 91%, 45%)';
+        const textColor = isDark ? 'hsl(200, 30%, 75%)' : 'hsl(220, 12%, 35%)';
+        const primaryColor = isDark ? 'hsl(200, 100%, 50%)' : 'hsl(220, 100%, 20%)';
+        const secondaryColor = isDark ? 'hsl(180, 100%, 50%)' : 'hsl(180, 100%, 25%)';
         
-        // 1. Draw concentric hexagon grids (Levels 25%, 50%, 75%, 100%)
+        // concentric grid lines
         const levels = [0.25, 0.50, 0.75, 1.0];
         levels.forEach(lvl => {
             iCtx.beginPath();
@@ -435,12 +397,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             iCtx.closePath();
             iCtx.strokeStyle = gridColor;
-            iCtx.lineWidth = 1;
             iCtx.stroke();
         });
 
-        // 2. Draw axis lines and labels
-        iCtx.font = "500 11px Inter";
+        // axes lines
+        iCtx.font = "10px 'Courier Prime', monospace";
         iCtx.fillStyle = textColor;
         iCtx.textAlign = "center";
 
@@ -449,22 +410,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetX = chartCenter.x + chartRadius * Math.cos(angle);
             const targetY = chartCenter.y + chartRadius * Math.sin(angle);
 
-            // Draw axis line
             iCtx.beginPath();
             iCtx.moveTo(chartCenter.x, chartCenter.y);
             iCtx.lineTo(targetX, targetY);
             iCtx.strokeStyle = gridColor;
             iCtx.stroke();
 
-            // Label offset offset positioning
+            // Offset label coordinates
             let labelOffset = 18;
             const labelX = chartCenter.x + (chartRadius + labelOffset) * Math.cos(angle);
             const labelY = chartCenter.y + (chartRadius + labelOffset) * Math.sin(angle) + 4;
-            
             iCtx.fillText(d.label, labelX, labelY);
         });
 
-        // 3. Calculate data point vertices
+        // plot points
         vertexPoints = [];
         interestsData.forEach((d, idx) => {
             const angle = idx * (2 * Math.PI / 6) - Math.PI / 2;
@@ -474,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
             vertexPoints.push({ x, y, label: d.label, val: d.value, desc: d.desc });
         });
 
-        // 4. Fill and draw data shape polygon
+        // draw shape
         iCtx.beginPath();
         vertexPoints.forEach((pt, idx) => {
             if (idx === 0) iCtx.moveTo(pt.x, pt.y);
@@ -482,40 +441,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         iCtx.closePath();
         
-        // Gradient fill
         const grad = iCtx.createRadialGradient(chartCenter.x, chartCenter.y, 10, chartCenter.x, chartCenter.y, chartRadius);
-        grad.addColorStop(0, isDark ? 'rgba(139, 92, 246, 0.4)' : 'rgba(109, 40, 217, 0.35)');
-        grad.addColorStop(1, isDark ? 'rgba(34, 211, 238, 0.15)' : 'rgba(14, 116, 144, 0.1)');
+        grad.addColorStop(0, 'rgba(0, 210, 255, 0.45)');
+        grad.addColorStop(1, 'rgba(0, 255, 255, 0.15)');
         
         iCtx.fillStyle = grad;
         iCtx.fill();
         
         iCtx.strokeStyle = primaryColor;
-        iCtx.lineWidth = 2.5;
+        iCtx.lineWidth = 2;
         iCtx.stroke();
 
-        // 5. Draw data vertices as small glow rings
+        // glow dots
         vertexPoints.forEach(pt => {
             iCtx.beginPath();
             iCtx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
             iCtx.fillStyle = secondaryColor;
-            iCtx.shadowBlur = 6;
+            iCtx.shadowBlur = 5;
             iCtx.shadowColor = secondaryColor;
             iCtx.fill();
-            iCtx.shadowBlur = 0; // Reset
-            
-            iCtx.beginPath();
-            iCtx.arc(pt.x, pt.y, 6, 0, Math.PI * 2);
-            iCtx.strokeStyle = primaryColor;
-            iCtx.lineWidth = 1;
-            iCtx.stroke();
+            iCtx.shadowBlur = 0;
         });
     }
 
-    // Interactive mouse hit detection on radar chart
     interestCanvas.addEventListener('mousemove', (e) => {
         const rect = interestCanvas.getBoundingClientRect();
-        // Adjust client coordinate scales
         const scaleX = 300 / rect.width;
         const scaleY = 300 / rect.height;
         const mouseX = (e.clientX - rect.left) * scaleX;
@@ -539,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activePoint) {
             chartTooltip.innerHTML = `<strong>${activePoint.label}</strong>: ${activePoint.val}%<br><span style="font-size: 0.75rem; color: var(--text-secondary);">${activePoint.desc}</span>`;
             
-            // Set tooltip position relative to wrapper container
             const canvasRect = interestCanvas.getBoundingClientRect();
             const parentRect = interestCanvas.parentElement.getBoundingClientRect();
             
@@ -561,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeInterestsChart();
 
     // ----------------------------------------------------
-    // 8. High-Tech Globe Location Zoom Scanner (Trivandrum)
+    // 8. Globe Location Zoom Scanner (Earth -> India -> Kerala -> TRV)
     // ----------------------------------------------------
     const globeCanvas = document.getElementById('globe-canvas');
     const gCtx = globeCanvas.getContext('2d');
@@ -571,10 +520,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let globeRotation = 0;
     let zoomScale = 1;
     let targetZoomScale = 1;
-    let scanningPhase = 0; // 0: Globe rotation, 1: Zooming in, 2: Kerala layout grid, 3: Completed Target Lock
+    let scanningPhase = 0; // 0: Rotating Earth Globe, 1: Slow Zoom India, 2: Zooming Kerala, 3: Completed Lock Trivandrum
     let phaseProgress = 0;
 
-    // Geographic Coordinates
     const targetLat = 8.5241;
     const targetLon = 76.9366;
 
@@ -588,49 +536,44 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resizeGlobeCanvas);
     resizeGlobeCanvas();
 
-    // Generate 3D wireframe sphere grid points
     function draw3DGlobe(cx, cy, radius, rotateY, rotateX, zoom) {
         const isDark = bodyEl.classList.contains('dark-theme');
-        const color = isDark ? 'hsla(190, 95%, 50%, 0.25)' : 'hsla(194, 91%, 45%, 0.2)';
-        const accent = isDark ? 'hsl(263, 90%, 65%)' : 'hsl(262, 83%, 58%)';
-        const targetColor = isDark ? 'hsl(190, 95%, 50%)' : 'hsl(194, 91%, 45%)';
+        const color = isDark ? 'hsla(200, 100%, 50%, 0.28)' : 'hsla(220, 100%, 20%, 0.15)';
+        const accentColor = isDark ? 'hsl(200, 100%, 50%)' : 'hsl(220, 100%, 20%)';
+        const beaconColor = 'hsl(180, 100%, 50%)'; // Cyan lock beacon
         
         gCtx.strokeStyle = color;
         gCtx.lineWidth = 1;
 
-        // Draw outer shell boundary
+        // Outer boundary sphere ring
         gCtx.beginPath();
         gCtx.arc(cx, cy, radius * zoom, 0, Math.PI * 2);
         gCtx.stroke();
 
-        const numRings = 10;
-        // Draw Latitudes (horizontal rings)
+        const numRings = 11;
+        // Latitudes (Horizontal circles)
         for (let i = 1; i < numRings; i++) {
             const lat = (i / numRings) * Math.PI - Math.PI / 2;
             const ringRadius = radius * Math.cos(lat) * zoom;
             const ringY = cy + radius * Math.sin(lat) * zoom;
 
             gCtx.beginPath();
-            // Draw ellipse for perspective
             gCtx.ellipse(cx, ringY, ringRadius, ringRadius * 0.25 * Math.cos(rotateX), 0, 0, Math.PI * 2);
             gCtx.stroke();
         }
 
-        // Draw Longitudes (vertical rings)
+        // Longitudes (Vertical curves)
         for (let i = 0; i < numRings; i++) {
             const lon = (i / numRings) * Math.PI * 2 + rotateY;
             gCtx.beginPath();
             
-            // Draw longitude slicing curves
             for (let j = 0; j <= 30; j++) {
                 const lat = (j / 30) * Math.PI - Math.PI / 2;
                 
-                // Rotated 3D coordinate calculations
                 const x3d = radius * Math.cos(lat) * Math.sin(lon);
                 const z3d = radius * Math.cos(lat) * Math.cos(lon);
                 const y3d = radius * Math.sin(lat);
 
-                // Perspective projection factors
                 const x2d = cx + x3d * zoom;
                 const y2d = cy + (y3d * Math.cos(rotateX) - z3d * Math.sin(rotateX)) * zoom;
 
@@ -640,47 +583,42 @@ document.addEventListener('DOMContentLoaded', () => {
             gCtx.stroke();
         }
 
-        // Plot targeting crosshair mapping over India / Trivandrum location
-        // Convert Lat/Lon coordinates into rotated 3D canvas coordinates
+        // Plot locked coordinates
         const radLat = (targetLat / 180) * Math.PI;
-        const radLon = ((targetLon + 180) / 180) * Math.PI + rotateY; // Offset longitude reference
+        const radLon = ((targetLon + 180) / 180) * Math.PI + rotateY;
 
         const tx3d = radius * Math.cos(radLat) * Math.sin(radLon);
         const tz3d = radius * Math.cos(radLat) * Math.cos(radLon);
         const ty3d = radius * Math.sin(radLat);
 
-        // Only render the point if it's on the facing side of the sphere (z3d > 0)
         if (tz3d > 0) {
             const tx2d = cx + tx3d * zoom;
             const ty2d = cy + (ty3d * Math.cos(rotateX) - tz3d * Math.sin(rotateX)) * zoom;
 
-            // Draw glowing target dot
             gCtx.beginPath();
             gCtx.arc(tx2d, ty2d, 5, 0, Math.PI * 2);
-            gCtx.fillStyle = targetColor;
+            gCtx.fillStyle = beaconColor;
             gCtx.shadowBlur = 8;
-            gCtx.shadowColor = targetColor;
+            gCtx.shadowColor = beaconColor;
             gCtx.fill();
             gCtx.shadowBlur = 0;
 
-            // Targeting ring
             gCtx.beginPath();
             gCtx.arc(tx2d, ty2d, 12 + Math.sin(Date.now() / 150) * 3, 0, Math.PI * 2);
-            gCtx.strokeStyle = targetColor;
-            gCtx.lineWidth = 1.5;
+            gCtx.strokeStyle = beaconColor;
+            gCtx.lineWidth = 1.2;
             gCtx.stroke();
 
-            // Crosshair labels
             if (scanningPhase >= 2) {
-                gCtx.font = "700 8px JetBrains Mono";
-                gCtx.fillStyle = targetColor;
-                gCtx.fillText("TRV LOCK", tx2d + 18, ty2d - 6);
+                gCtx.font = "bold 8px 'Courier Prime', monospace";
+                gCtx.fillStyle = beaconColor;
+                gCtx.fillText("TRV LOCKED", tx2d + 16, ty2d - 6);
                 
                 gCtx.beginPath();
                 gCtx.moveTo(tx2d, ty2d);
-                gCtx.lineTo(tx2d + 15, ty2d - 10);
-                gCtx.lineTo(tx2d + 45, ty2d - 10);
-                gCtx.strokeStyle = targetColor;
+                gCtx.lineTo(tx2d + 12, ty2d - 9);
+                gCtx.lineTo(tx2d + 40, ty2d - 9);
+                gCtx.strokeStyle = beaconColor;
                 gCtx.lineWidth = 0.8;
                 gCtx.stroke();
             }
@@ -689,14 +627,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function drawGridRadar(cx, cy, zoom) {
         const isDark = bodyEl.classList.contains('dark-theme');
-        const color = isDark ? 'rgba(34, 211, 238, 0.15)' : 'rgba(14, 116, 144, 0.1)';
-        const accent = isDark ? 'hsl(190, 95%, 50%)' : 'hsl(194, 91%, 45%)';
-        const textStyle = isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)';
+        const color = isDark ? 'rgba(0, 210, 255, 0.18)' : 'rgba(0, 128, 255, 0.08)';
+        const accent = isDark ? 'hsl(200, 100%, 50%)' : 'hsl(220, 100%, 20%)';
+        const beacon = 'hsl(180, 100%, 50%)';
 
         gCtx.strokeStyle = color;
         gCtx.lineWidth = 1;
 
-        // Draw nested radar scanner grids
         const maxRad = 110 * zoom;
         gCtx.beginPath();
         gCtx.arc(cx, cy, maxRad, 0, Math.PI * 2);
@@ -704,31 +641,29 @@ document.addEventListener('DOMContentLoaded', () => {
         gCtx.arc(cx, cy, maxRad * 0.3, 0, Math.PI * 2);
         gCtx.stroke();
 
-        // Crosshairs lines
         gCtx.beginPath();
         gCtx.moveTo(cx - maxRad, cy); gCtx.lineTo(cx + maxRad, cy);
         gCtx.moveTo(cx, cy - maxRad); gCtx.lineTo(cx, cy + maxRad);
         gCtx.stroke();
 
-        // Pulsing locked target circle
+        // Pulsing radar center
         gCtx.beginPath();
-        const pulse = 8 + Math.sin(Date.now() / 100) * 4;
+        const pulse = 7 + Math.sin(Date.now() / 90) * 3.5;
         gCtx.arc(cx, cy, pulse, 0, Math.PI * 2);
-        gCtx.fillStyle = accent;
+        gCtx.fillStyle = beacon;
         gCtx.shadowBlur = 10;
-        gCtx.shadowColor = accent;
+        gCtx.shadowColor = beacon;
         gCtx.fill();
         gCtx.shadowBlur = 0;
 
-        // Draw targeting bounds
-        gCtx.strokeStyle = accent;
+        gCtx.strokeStyle = beacon;
         gCtx.lineWidth = 1.5;
         gCtx.beginPath();
         gCtx.arc(cx, cy, 32, 0, Math.PI * 2);
         gCtx.stroke();
 
+        // corner targeting bracket rings
         gCtx.beginPath();
-        // Corners bracket visuals
         const len = 12;
         const boxSize = 42;
         // Top Left
@@ -741,10 +676,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gCtx.moveTo(cx + boxSize, cy + boxSize - len); gCtx.lineTo(cx + boxSize, cy + boxSize); gCtx.lineTo(cx + boxSize - len, cy + boxSize);
         gCtx.stroke();
 
-        // Locked target telemetry
-        gCtx.font = "8px JetBrains Mono";
+        gCtx.font = "8px 'Courier Prime', monospace";
         gCtx.fillStyle = accent;
-        gCtx.fillText("SYS_LOC: ACTIVE", cx + boxSize + 6, cy - 10);
+        gCtx.fillText("LOC: INDIA", cx + boxSize + 6, cy - 10);
         gCtx.fillText("STATE: KERALA", cx + boxSize + 6, cy);
         gCtx.fillText("CITY: TRIVANDRUM", cx + boxSize + 6, cy + 10);
     }
@@ -755,15 +689,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         gCtx.clearRect(0, 0, globeCanvas.width, globeCanvas.height);
 
-        // Smooth zoom transition updates
-        zoomScale += (targetZoomScale - zoomScale) * 0.08;
+        zoomScale += (targetZoomScale - zoomScale) * 0.05; // Slow down zoom speed to meet user preference
 
-        // Scramble coordinate telemetry label display based on progress
         if (scanningPhase === 0) {
-            globeRotation += 0.006;
-            draw3DGlobe(cx, cy, 55, globeRotation, 0.3, zoomScale);
+            globeRotation += 0.005; // Slowly rotates
+            draw3DGlobe(cx, cy, 55, globeRotation, 0.35, zoomScale);
             
-            // Random coordinate scramble numbers
             if (coordsText) {
                 const randLat = (Math.random() * 180 - 90).toFixed(4);
                 const randLon = (Math.random() * 360 - 180).toFixed(4);
@@ -771,33 +702,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } 
         else if (scanningPhase === 1) {
-            // Speed rotation and start zooming in
-            globeRotation += (0.015 - globeRotation) * 0.05;
-            targetZoomScale = 2.4;
-            draw3DGlobe(cx, cy, 55, globeRotation, 0.3, zoomScale);
+            // Speed rotation slightly and zoom slowly into India
+            globeRotation += (0.012 - globeRotation) * 0.04;
+            targetZoomScale = 2.2;
+            draw3DGlobe(cx, cy, 55, globeRotation, 0.35, zoomScale);
             
-            phaseProgress += 0.015;
+            phaseProgress += 0.01; // Slower progress step
             if (phaseProgress >= 1.0) {
                 scanningPhase = 2;
                 phaseProgress = 0;
-                if (statusText) statusText.innerText = "Zooming India -> Kerala Region...";
+                if (statusText) statusText.innerText = "Zooming: Kerala Region...";
             }
             if (coordsText) {
-                // Converge coordinates closer to Trivandrum
-                const curLat = (Math.random() * 5 + 6).toFixed(4);
-                const curLon = (Math.random() * 5 + 74).toFixed(4);
+                const curLat = (Math.random() * 4 + 7).toFixed(4);
+                const curLon = (Math.random() * 4 + 75).toFixed(4);
                 coordsText.innerText = `${curLat}° N, ${curLon}° E`;
             }
         } 
         else if (scanningPhase === 2) {
-            // High speed zoom transition
-            targetZoomScale = 4.2;
+            // Zooming towards Kerala
+            targetZoomScale = 4.0;
             
-            // Transition between globe rendering and flat grid radar
             const opacity = 1 - phaseProgress;
             gCtx.save();
             gCtx.globalAlpha = opacity;
-            draw3DGlobe(cx, cy, 55, globeRotation, 0.3, zoomScale);
+            draw3DGlobe(cx, cy, 55, globeRotation, 0.35, zoomScale);
             gCtx.restore();
 
             gCtx.save();
@@ -805,33 +734,31 @@ document.addEventListener('DOMContentLoaded', () => {
             drawGridRadar(cx, cy, zoomScale * 0.35);
             gCtx.restore();
 
-            phaseProgress += 0.02;
+            phaseProgress += 0.015;
             if (phaseProgress >= 1.0) {
                 scanningPhase = 3;
-                if (statusText) statusText.innerText = "Target Locked: Trivandrum (TRV)";
+                if (statusText) statusText.innerText = "Locked: Trivandrum (TRV)";
                 if (coordsText) coordsText.innerText = `${targetLat.toFixed(4)}° N, ${targetLon.toFixed(4)}° E`;
                 showToast("Location Target Locked: Trivandrum", "success");
             }
         } 
         else if (scanningPhase === 3) {
-            // Final phase: full radar lock display
-            drawGridRadar(cx, cy, 1.4);
+            drawGridRadar(cx, cy, 1.45);
         }
 
         requestAnimationFrame(animateLocationGlobe);
     }
 
-    // Trigger scanning zoom on scroll visibility
     const locatorObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 if (scanningPhase === 0) {
                     scanningPhase = 1;
-                    if (statusText) statusText.innerText = "Tracking Satellite Vectors...";
+                    if (statusText) statusText.innerText = "Locating Operational Base...";
                 }
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
     locatorObserver.observe(document.getElementById('about'));
     animateLocationGlobe();
@@ -864,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const updateCount = () => {
                 const target = +counter.getAttribute('data-val');
                 const count = +counter.innerText;
-                const speed = 150;
+                const speed = 120;
                 const increment = Math.ceil(target / speed);
 
                 if (count < target) {
@@ -920,7 +847,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayQuote(index) {
         if (!quoteTextEl || !quoteAuthorEl) return;
         
-        // Out animations
         quoteTextEl.style.opacity = '0';
         quoteTextEl.style.transform = 'translateY(-10px)';
         quoteAuthorEl.style.opacity = '0';
@@ -930,12 +856,10 @@ document.addEventListener('DOMContentLoaded', () => {
             quoteTextEl.textContent = `"${quotesList[index].text}"`;
             quoteAuthorEl.textContent = `— ${quotesList[index].author}`;
             
-            // In animations
             quoteTextEl.style.opacity = '1';
             quoteTextEl.style.transform = 'translateY(0)';
             quoteAuthorEl.style.opacity = '1';
             
-            // Update dot states
             const dots = document.querySelectorAll('.quote-dot');
             dots.forEach((dot, idx) => {
                 dot.className = `quote-dot ${idx === currentQuoteIdx ? 'active' : ''}`;
@@ -999,33 +923,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // 12. Project Detail Modals
+    // 12. Student Project Detail Modals
     // ----------------------------------------------------
     const projectData = {
-        "Nebula Dashboard": {
-            desc: "Nebula Dashboard is a high-performance system dashboard utilizing WebSockets for streaming server metrics. Built with complex SVG visualization widgets and dynamic HSL borders, it enables real-time system monitoring with zero-lag drawing routines.",
-            tags: ["React", "CSS Grid", "WebSockets", "Node.js"],
-            img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+        "Pathfinding Visualizer": {
+            desc: "Pathfinding Visualizer is an interactive educational tool designed to show search path routines (Breadth-First Search, Depth-First Search, and Dijkstra's Algorithm) over obstacle grids. Built using Python and the Pygame library, it illustrates vertex weights and path tracing routines dynamically.",
+            tags: ["Python", "Pygame", "Algorithms", "GUI"],
+            img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&auto=format&fit=crop&q=80",
             live: "#",
             code: "#"
         },
-        "Cognitive Nexus": {
-            desc: "Cognitive Nexus integrates vector database search (ChromaDB) and Transformer models (Llama index) to digest enterprise documentation. It runs a custom prompt router that auto-allocates tasks across specialized LLM instances to resolve queries.",
-            tags: ["Python", "Transformers", "API", "ChromaDB"],
-            img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&auto=format&fit=crop&q=80",
+        "Library SQL Manager": {
+            desc: "Library SQL Manager handles database checkouts, books inventory logs, and student registrations. It maps C++ structures into SQL tables using MySQL connectors, showcasing standard relational normalization and foreign key integrations.",
+            tags: ["C++", "MySQL", "DBMS", "Relational Database"],
+            img: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&auto=format&fit=crop&q=80",
             live: "#",
             code: "#"
         },
-        "Aether Synthesis": {
-            desc: "Aether Synthesis is an audio visual experiment written in raw Javascript using the Web Audio API and WebGL Shaders. It parses microphone frequency bands in real-time to deform a customizable, glowing geometric canvas.",
-            tags: ["HTML5 Canvas", "GLSL", "WebGL", "Vanilla JS"],
+        "Terminal Space Invader": {
+            desc: "Terminal Space Invader is a lightweight console arcade game. It handles rendering loops using standard character coordinate matrices, uses OOP design principles for game objects (invaders, bullet lasers, shielding assets), and features keyboard listeners.",
+            tags: ["C++", "Console UI", "OOP", "Game Logic"],
             img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80",
             live: "#",
             code: "#"
         },
-        "Quantum Flow": {
-            desc: "Quantum Flow is a high-speed production SaaS boilerplate featuring multi-tenant databases, robust user permission systems, subscription portals powered by Stripe, and real-time project metrics analytics.",
-            tags: ["Next.js", "PostgreSQL", "Stripe API", "TailwindCSS"],
+        "Personal Sandbox Web": {
+            desc: "Personal Sandbox Web contains test structures built with HTML5 semantic elements and clean CSS variables. Used to evaluate layout alignments, media breakpoints, grid overlays, and vanilla JavaScript event loops.",
+            tags: ["HTML5", "CSS3", "Vanilla JS", "Responsive Design"],
             img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
             live: "#",
             code: "#"
@@ -1087,12 +1011,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const terminalCommands = {
         help: "Available commands: <span class='highlight'>help</span>, <span class='highlight'>about</span>, <span class='highlight'>skills</span>, <span class='highlight'>interests</span>, <span class='highlight'>projects</span>, <span class='highlight'>contact</span>, <span class='highlight'>theme [dark|light]</span>, <span class='highlight'>secret</span>, <span class='highlight'>clear</span>",
-        about: "ABHINAV A V. Target Locked Location: Trivandrum, Kerala, India. Spec: Core Developer & Creative Programmer. Crafting premium user experiences using optimized front-end grids and clean logical scripts.",
-        skills: "SYSTEM COMPETENCIES:<br>- Front-end: HTML5, CSS3, ES6+, React, Next.js, WebGL (95%)<br>- Back-end: Node.js, Express, REST APIs, SQL, NoSQL (85%)<br>- Scripting: Bash, Git, Python, Docker (90%)",
-        interests: "PASSION MATRICES:<br>- Football (Team Tactics & Playing)<br>- Gaming (RPG & Simulation Systems)<br>- Open Source Contributions & Audio Synthesis",
-        projects: "LAUNCHED PROJECTS:<br>- Nebula Dashboard (WebSocket-driven Server Visualizer)<br>- Cognitive Nexus (RAG LLM Document Pipeline)<br>- Aether Synthesis (Web Audio Shader Synthesizer)<br>- Quantum Flow (SaaS Subscription Architecture)",
-        contact: "COMMUNICATION HOOKS:<br>- Email: <a href='mailto:abhinav.av@devunit.io' class='highlight'>abhinav.av@devunit.io</a><br>- Github: github.com/abhinav-av<br>- Terminal ID: #ABHINAV_AV01",
-        secret: "BATMAN EASTER EGG UNLOCKED:<br><pre style='color: var(--primary-color); font-family: monospace; font-size: 0.65rem; margin-top: 10px; line-height: 1.1'>\n    _==/\\==_      _==/\\==_\n  _/ /  \\\\ \\_  _/ /  \\\\ \\_\n _/ /    \\\\ \\_/ /    \\\\ \\_\n/ /      \\\\  /  /      \\\\ \\\n\\ \\      /  /  \\      / /\n _\\ \\    // \\_/ \\\\    / _/\n  _\\ \\  // /_  _\\\\ \\  / _/\n    \\==/\\==/    \\==/\\==/\n\nI am vengeance. I am the night. I am Abhinav!\n</pre>"
+        about: "ABHINAV A V. Target Lock: Trivandrum, Kerala, India. Spec: First-Year Computer Science Student. Learning Python, C++, and basic Database management structures (DBMS). Eager to build code coordinates.",
+        skills: "SKILL RATINGS (Average competencies):<br>- Python: Basic syntax scripting, Tkinter/Pygame libraries (70%)<br>- C++: Control loops, structures, basic OOP classes, console layouts (65%)<br>- DBMS: Relational theory, writing simple SQL queries (60%)",
+        interests: "HOBBY MATRICES:<br>- Football (Player & Tactical observer)<br>- Gaming (Tactical RPGs & Simulations)<br>- Space Tech (Orbit vectors, spaceship structures)",
+        projects: "ACADEMIC/PERSONAL BUILDS:<br>- Pathfinding Visualizer (Python grid-search path visualization)<br>- Library SQL Manager (C++ inventory utility linked to SQL tables)<br>- Terminal Space Invader (C++ 2D console keyboard-input game)<br>- Personal Sandbox Web (HTML/CSS UI experimental layout)",
+        contact: "COMMUNICATION HOOKS:<br>- Email: <a href='mailto:abhinav.av@devunit.io' class='highlight'>abhinav.av@devunit.io</a><br>- LinkedIn: linkedin.com/in/abhinav-av<br>- Terminal ID: #ABHINAV_STUDENT01",
+        secret: "SPACESHIP THRUST ENGAGED:<br><pre style='color: var(--primary-color); font-family: monospace; font-size: 0.65rem; margin-top: 10px; line-height: 1.1'>\n      /\\\n     /  \\\n    /    \\\n   /|    |\\\n  /_|    |_\\\n    |    |\n    |____|\n    / || \\\n   /  ||  \\\n  *   **   *\n\nEngine thrust: 100%. Operational. Keep coding!\n</pre>"
     };
 
     if (terminalInput) {
@@ -1130,7 +1054,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         bodyEl.classList.add('dark-theme');
                         themeIcon.className = 'fa-solid fa-moon';
                         localStorage.setItem('portfolio-theme', 'dark');
-                        appendTerminalLine("Theme updated to: dark", 'success');
+                        appendTerminalLine("Theme updated to: dark (neon-blue)", 'success');
                     } else if (argTheme === 'light') {
                         bodyEl.classList.remove('dark-theme');
                         bodyEl.classList.add('light-theme');
