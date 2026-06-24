@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Portfolio of Abhinav A V - Premium Interactive Web Developer displaying high-tech visuals, interactive globe locator, custom cursor, and dynamic spider web chart.">
+    <title>Abhinav A V | Interactive Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Canvas Particle Background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Custom Cursor Overlay -->
+    <div id="custom-cursor">
+        <svg viewBox="-20 -20 40 40" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sleek Glowing Batman Emblem -->
+            <path d="M 0,10 C 3,10 9,5 11,0 C 13,5 19,10 22,10 C 18,5 24,1 27,-4 C 21,-3 16,-1 14,-7 C 13.5,-9 13,-15 14,-19 C 12,-14 9,-11 8,-9 C 7,-11 4,-14 2,-19 C 3,-15 2.5,-9 2,-7 C 0,-1 -6,-3 -12,-4 C -8,1 -2,5 -6,10 Z" fill="currentColor"/>
+        </svg>
+    </div>
+    <canvas id="cursor-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="main-header glass-panel">
+        <div class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-mask"></i></span>
+            <span class="logo-text">ABHINAV<span>.</span></span>
+        </div>
+        <nav class="nav-links" id="nav-links">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#interests" class="nav-link">Interests</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#timeline" class="nav-link">Experience</a>
+            <a href="#terminal" class="nav-link">Terminal</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+        <div class="nav-actions">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="badge glass-panel"><span class="badge-dot"></span> Available for Hire</div>
+                <!-- Multilingual Name Container -->
+                <h1 class="hero-title">Hello, I'm <br><span id="animated-name" class="gradient-text animated-name-fade">Abhinav A V</span></h1>
+                <p class="hero-subtitle">I'm a <span id="typing-text" class="typing-text"></span><span class="cursor">|</span> based in digital space, building highly performant, custom-crafted applications.</p>
+                <div class="hero-ctas">
+                    <a href="#projects" class="btn btn-primary">Explore Work <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="avatar-container glass-panel">
+                    <img src="../../brain/570e222e-b5ea-4235-935a-a48840c07dcd/avatar_1782281599552.png" alt="Developer Avatar" class="avatar-image" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80'">
+                    <div class="avatar-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Stats Section (incorporating Location Zoom) -->
+        <section id="about" class="about-section scroll-reveal">
+            <h2 class="section-title"><span>01.</span> About Myself</h2>
+            <div class="about-grid">
+                <div class="about-info glass-panel">
+                    <h3>Engineering interfaces, solving complex challenges.</h3>
+                    <p>I build clean, optimized code architectures and visually stunning frontends. My philosophy is that technology should not only work flawlessly under the hood but should also feel fluid and delightful to use.</p>
+                    <p>When I'm not coding, I study design trends, play football, stream immersive games, and experiment with generative web graphics.</p>
+                    
+                    <!-- Location Scanner Widget -->
+                    <div class="location-scanner glass-panel-inner">
+                        <div class="scanner-header">
+                            <span class="scanner-title"><i class="fa-solid fa-earth-asia"></i> TARGET_TRACKER</span>
+                            <span class="scanner-coords" id="scanner-coords">0.0000° N, 0.0000° E</span>
+                        </div>
+                        <div class="scanner-body">
+                            <canvas id="globe-canvas"></canvas>
+                            <div class="scanner-line"></div>
+                            <div class="scanner-status" id="scanner-status">Initializing Scanning System...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel">
+                        <div class="stat-num" data-val="15">0</div>
+                        <div class="stat-label">Projects Complete</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-num" data-val="4">0</div>
+                        <div class="stat-label">Years Coding</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-num" data-val="56">0</div>
+                        <div class="stat-label">Contributions</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-num" data-val="100">0</div>
+                        <div class="stat-label">Success Rate (%)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section scroll-reveal">
+            <h2 class="section-title"><span>02.</span> Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skills-category glass-panel">
+                    <div class="cat-header">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h3>Frontend</h3>
+                    </div>
+                    <ul class="skills-list">
+                        <li><span>HTML5 / CSS3 / ES6+</span> <span class="skill-pct">95%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+                        <li><span>React / Next.js</span> <span class="skill-pct">90%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+                        <li><span>Modern CSS / Animations</span> <span class="skill-pct">95%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+                    </ul>
+                </div>
+
+                <div class="skills-category glass-panel">
+                    <div class="cat-header">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>Backend</h3>
+                    </div>
+                    <ul class="skills-list">
+                        <li><span>Node.js / Express</span> <span class="skill-pct">85%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+                        <li><span>RESTful APIs / GraphQL</span> <span class="skill-pct">88%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
+                        <li><span>Databases (SQL & NoSQL)</span> <span class="skill-pct">80%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+                    </ul>
+                </div>
+
+                <div class="skills-category glass-panel">
+                    <div class="cat-header">
+                        <i class="fa-solid fa-bezier-curve"></i>
+                        <h3>Design & Tools</h3>
+                    </div>
+                    <ul class="skills-list">
+                        <li><span>UI/UX Figma Prototyping</span> <span class="skill-pct">90%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+                        <li><span>Git / CI/CD Pipelines</span> <span class="skill-pct">85%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+                        <li><span>Command Line / Scripting</span> <span class="skill-pct">90%</span></li>
+                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests Section (incorporating Spider Web Chart) -->
+        <section id="interests" class="interests-section scroll-reveal">
+            <h2 class="section-title"><span>03.</span> Interests & Passions</h2>
+            <div class="interests-grid">
+                <div class="interests-chart-card glass-panel">
+                    <h3>Spider Web Interest Mapping</h3>
+                    <div class="canvas-chart-wrapper">
+                        <canvas id="interests-chart"></canvas>
+                        <!-- Custom html tooltips inside canvas -->
+                        <div id="chart-tooltip" class="chart-tooltip"></div>
+                    </div>
+                </div>
+                
+                <div class="interests-info glass-panel">
+                    <h3>Beyond the Code Matrix</h3>
+                    <p>My growth is fueled by diverse experiences. Here is how I divide my focus and energy when offline:</p>
+                    <div class="interest-pill-container">
+                        <div class="interest-pill"><i class="fa-solid fa-football"></i> Football (Tactics & Playing)</div>
+                        <div class="interest-pill"><i class="fa-solid fa-gamepad"></i> Video Games (Simulation & RPGs)</div>
+                        <div class="interest-pill"><i class="fa-solid fa-code"></i> Open Source Hackathons</div>
+                        <div class="interest-pill"><i class="fa-solid fa-music"></i> Lo-Fi Synth Production</div>
+                        <div class="interest-pill"><i class="fa-solid fa-book-open"></i> Sci-Fi & Philosophy</div>
+                        <div class="interest-pill"><i class="fa-solid fa-brain"></i> Strategic Planning</div>
+                    </div>
+                    <div class="interest-desc-box">
+                        <p><strong>Football</strong> drives my team communication and athletic focus. <strong>Video games</strong> stimulate visual scripting ideas. Together with coding, they build an analytical mindset that thrives under pressure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Encouraging Quotes Section -->
+        <section class="quotes-section scroll-reveal">
+            <div class="quote-container glass-panel">
+                <div class="quote-glow"></div>
+                <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                <div class="quote-carousel">
+                    <blockquote class="quote-text" id="quote-text">
+                        "The only limit to our realization of tomorrow will be our doubts of today."
+                    </blockquote>
+                    <cite class="quote-author" id="quote-author">— Franklin D. Roosevelt</cite>
+                </div>
+                <div class="quote-dots" id="quote-dots">
+                    <span class="quote-dot active" data-index="0"></span>
+                    <span class="quote-dot" data-index="1"></span>
+                    <span class="quote-dot" data-index="2"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Showcase Section -->
+        <section id="projects" class="projects-section scroll-reveal">
+            <h2 class="section-title"><span>04.</span> Selected Work</h2>
+            
+            <!-- Filters -->
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+                <button class="filter-btn" data-filter="ai">AI & Data</button>
+                <button class="filter-btn" data-filter="creative">Creative Tech</button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="projects-grid">
+                <!-- Card 1 -->
+                <div class="project-card glass-panel" data-category="web">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=80" alt="Nebula App Preview">
+                        <div class="project-overlay">
+                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>CSS Grid</span>
+                            <span>WebSockets</span>
+                        </div>
+                        <h3 class="project-title">Nebula Dashboard</h3>
+                        <p class="project-desc">A real-time telemetry dashboard designed for monitoring server networks with high-fidelity glassmorphic graphics.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="project-card glass-panel" data-category="ai">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&auto=format&fit=crop&q=80" alt="AI Workspace Preview">
+                        <div class="project-overlay">
+                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>Transformers</span>
+                            <span>API</span>
+                        </div>
+                        <h3 class="project-title">Cognitive Nexus</h3>
+                        <p class="project-desc">An AI agent orchestrator designed to process and synthesize unstructured document databases into structured insights.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="project-card glass-panel" data-category="creative">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=80" alt="Generative Canvas Preview">
+                        <div class="project-overlay">
+                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span>HTML5 Canvas</span>
+                            <span>GLSL</span>
+                            <span>Vanilla JS</span>
+                        </div>
+                        <h3 class="project-title">Aether Synthesis</h3>
+                        <p class="project-desc">An audio-reactive visualizer running custom WebGL shaders to create fluid, beautiful audio canvases.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="project-card glass-panel" data-category="web">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=80" alt="SaaS App Preview">
+                        <div class="project-overlay">
+                            <span class="view-details-btn">View Details <i class="fa-solid fa-expand"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span>Next.js</span>
+                            <span>PostgreSQL</span>
+                            <span>Stripe</span>
+                        </div>
+                        <h3 class="project-title">Quantum Flow</h3>
+                        <p class="project-desc">A subscription-based SaaS template facilitating project task management and team analytics tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="timeline-section scroll-reveal">
+            <h2 class="section-title"><span>05.</span> Experience Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2024 - Present</span>
+                        <h3 class="timeline-title">Lead Web Engineer</h3>
+                        <h4 class="timeline-org">Aether Web Studios</h4>
+                        <p>Directing frontend development strategy, building premium design systems, and improving client platform loads by 40% using optimized vanilla bundles and component architectures.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2023 - 2024</span>
+                        <h3 class="timeline-title">Full Stack Developer</h3>
+                        <h4 class="timeline-org">Hologram Tech</h4>
+                        <p>Constructed microservices using Node.js and React, integrated payment pathways, and engineered interactive visual components for telemetry display interfaces.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-panel">
+                        <span class="timeline-date">2021 - 2023</span>
+                        <h3 class="timeline-title">Software Engineering Studies</h3>
+                        <h4 class="timeline-org">Tech Institute of Science</h4>
+                        <p>Earned specialization in web systems engineering, data structures, and computer graphics design. Graduated with honors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal Simulator -->
+        <section id="terminal" class="terminal-section scroll-reveal">
+            <h2 class="section-title"><span>06.</span> Interactive Sandbox</h2>
+            <div class="terminal-container glass-panel">
+                <div class="terminal-header">
+                    <div class="terminal-circles">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="terminal-title">bash -- abhinav@terminal</div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <div class="terminal-line">Type <span class="highlight">help</span> to view available commands.</div>
+                    <div class="terminal-output-container" id="terminal-outputs"></div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">abhinav:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" autofocus aria-label="Terminal Command Input">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section scroll-reveal">
+            <h2 class="section-title"><span>07.</span> Connection Terminal</h2>
+            <div class="contact-grid">
+                <div class="contact-text">
+                    <h3>Let's collaborate on your next digital experience.</h3>
+                    <p>Have an idea or need a customized solution? Reach out. My inbox is always open.</p>
+                    <div class="contact-channels">
+                        <div class="channel-card glass-panel">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <span>Email Me</span>
+                                <a href="mailto:abhinav.av@devunit.io">abhinav.av@devunit.io</a>
+                            </div>
+                        </div>
+                        <div class="channel-card glass-panel">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <span>Based In</span>
+                                <p>Trivandrum, Kerala, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="contact-form" class="contact-form glass-panel">
+                    <div class="form-group">
+                        <input type="text" id="form-name" required placeholder=" ">
+                        <label for="form-name">Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="form-email" required placeholder=" ">
+                        <label for="form-email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="form-message" required placeholder=" " rows="5"></textarea>
+                        <label for="form-message">Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Transmission <i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <button class="modal-close" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="Project Preview">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-tags" id="modal-tags"></div>
+                    <h3 id="modal-title" class="modal-title">Project Name</h3>
+                    <div id="modal-desc" class="modal-desc">Detailed project description goes here.</div>
+                    <div class="modal-actions">
+                        <a href="#" id="modal-link-live" class="btn btn-primary" target="_blank">Launch Site <i class="fa-solid fa-up-right-from-square"></i></a>
+                        <a href="#" id="modal-link-code" class="btn btn-secondary" target="_blank">View Code <i class="fa-solid fa-code-branch"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Abhinav A V. Built with raw passion & clean code.</p>
+        <div class="footer-socials">
+            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
